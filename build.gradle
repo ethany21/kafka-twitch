@@ -28,8 +28,6 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.kafka:spring-kafka-test'
 	implementation 'com.github.outstanding1301:donation-alert-api:1.0.0'
-	implementation 'com.squareup.okhttp3:okhttp:4.9.3'
-	implementation 'io.reactivex.rxjava3:rxjava:3.1.3'
 }
 
 tasks.named('test') {

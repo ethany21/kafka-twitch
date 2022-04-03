@@ -14,22 +14,9 @@ import java.io.*;
 import java.net.*;
 
 @SpringBootApplication
-public class KafkaTwitchApplication implements CommandLineRunner {
+public class KafkaTwitchApplication {
 
-    public static void main(String[] args) throws IOException {
-        SpringApplication application = new SpringApplication(KafkaTwitchApplication.class);
-        application.run(args);
+    public static void main(String[] args) {
+        SpringApplication.run(KafkaTwitchApplication.class, args);
     }
-
-    @Override
-    public void run(String... args) throws Exception {
-        ConnectTwitch connectTwitch = new ConnectTwitch();
-        connectTwitch.connect();
-    }
-}
-
-@Component
-@RequiredArgsConstructor
-class Producer {
-
 }
