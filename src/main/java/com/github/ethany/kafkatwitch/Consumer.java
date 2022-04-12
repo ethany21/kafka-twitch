@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 class Consumer {
 
-    @KafkaListener(topics = "twitch", groupId = "group_id")
+    @KafkaListener(topics = "twitch", groupId = "consumer_group_id")
     public void consumeMessage(String message){
         System.out.println("recieved message is" + message);
     }

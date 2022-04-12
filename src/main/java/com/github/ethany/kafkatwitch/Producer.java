@@ -22,7 +22,7 @@ class Producer {
     private static final Logger LOGGER = Logger.getLogger(Producer.class.getName());
 
     @Autowired
-    private KafkaTemplate<String,String> kafkaTemplate;
+    private KafkaTemplate<String ,String> kafkaTemplate;
 
     @EventListener(ApplicationStartedEvent.class)
     public void sendMessage () throws IOException {
@@ -33,11 +33,21 @@ class Producer {
 
         outputStream.write(("PASS " + "oauth:kpz9iq7hk78g6ck8bycx5r3clg9vf9" + "\n").getBytes(StandardCharsets.UTF_8));
         outputStream.write(("NICK " + "davi21xxi" + "\n").getBytes(StandardCharsets.UTF_8));
-        outputStream.write(("JOIN " + "#pacific8815" + "\n").getBytes(StandardCharsets.UTF_8));
+        outputStream.write(("JOIN " + "#ddahyoni" + "\n").getBytes(StandardCharsets.UTF_8));
         outputStream.write(("JOIN " + "#kimdoe" + "\n").getBytes(StandardCharsets.UTF_8));
-        outputStream.write(("JOIN " + "#amouranth" + "\n").getBytes(StandardCharsets.UTF_8));
+        outputStream.write(("JOIN " + "#sonycast_" + "\n").getBytes(StandardCharsets.UTF_8));
         outputStream.write(("JOIN " + "#lck_korea" + "\n").getBytes(StandardCharsets.UTF_8));
-        outputStream.write(("JOIN " + "#pjs9073" + "\n").getBytes(StandardCharsets.UTF_8));
+        outputStream.write(("JOIN " + "#amouranth" + "\n").getBytes(StandardCharsets.UTF_8));
+        outputStream.write(("JOIN " + "#magenta62" + "\n").getBytes(StandardCharsets.UTF_8));
+        outputStream.write(("JOIN " + "#sooflower" + "\n").getBytes(StandardCharsets.UTF_8));
+        outputStream.write(("JOIN " + "#jungtaejune" + "\n").getBytes(StandardCharsets.UTF_8));
+        outputStream.write(("JOIN " + "#zilioner" + "\n").getBytes(StandardCharsets.UTF_8));
+        outputStream.write(("JOIN " + "#hanryang1125" + "\n").getBytes(StandardCharsets.UTF_8));
+        outputStream.write(("JOIN " + "#woowakgood" + "\n").getBytes(StandardCharsets.UTF_8));
+        outputStream.write(("JOIN " + "#obm1025" + "\n").getBytes(StandardCharsets.UTF_8));
+        outputStream.write(("JOIN " + "#jingburger" + "\n").getBytes(StandardCharsets.UTF_8));
+        outputStream.write(("JOIN " + "#dkwl025" + "\n").getBytes(StandardCharsets.UTF_8));
+        outputStream.write(("JOIN " + "#rudbeckia7" + "\n").getBytes(StandardCharsets.UTF_8));
 
         InputStream inputStream = socket.getInputStream();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
@@ -45,8 +55,15 @@ class Producer {
         String line;
 
         while ((line = reader.readLine()) != null) {
-            LOGGER.info(line);
-            this.kafkaTemplate.send(TOPIC, line);
+
+            try {
+                LOGGER.info(line);
+                String key = line.split(" ")[2];
+                this.kafkaTemplate.send(TOPIC, key, line);
+            }
+            catch (ArrayIndexOutOfBoundsException e){
+                LOGGER.info("I caught exception " + e.getMessage());
+            }
         }
     }
 
