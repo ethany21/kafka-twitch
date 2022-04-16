@@ -54,6 +54,15 @@ class Producer {
         outputStream.write(("JOIN " + "#berry0314" + "\n").getBytes(StandardCharsets.UTF_8));
         outputStream.write(("JOIN " + "#woohankyung" + "\n").getBytes(StandardCharsets.UTF_8));
         outputStream.write(("JOIN " + "#nanajam777" + "\n").getBytes(StandardCharsets.UTF_8));
+        outputStream.write(("JOIN " + "#shroud" + "\n").getBytes(StandardCharsets.UTF_8));
+        outputStream.write(("JOIN " + "#johnny3047258" + "\n").getBytes(StandardCharsets.UTF_8));
+        outputStream.write(("JOIN " + "#saddummy" + "\n").getBytes(StandardCharsets.UTF_8));
+        outputStream.write(("JOIN " + "#dogswellfish" + "\n").getBytes(StandardCharsets.UTF_8));
+        outputStream.write(("JOIN " + "#ch1ckenkun" + "\n").getBytes(StandardCharsets.UTF_8));
+        outputStream.write(("JOIN " + "#sapnapalt" + "\n").getBytes(StandardCharsets.UTF_8));
+        outputStream.write(("JOIN " + "#fextralife" + "\n").getBytes(StandardCharsets.UTF_8));
+        outputStream.write(("JOIN " + "#veibae" + "\n").getBytes(StandardCharsets.UTF_8));
+        outputStream.write(("JOIN " + "#pjs9073" + "\n").getBytes(StandardCharsets.UTF_8));
 
         InputStream inputStream = socket.getInputStream();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
@@ -64,8 +73,13 @@ class Producer {
 
             try {
                 LOGGER.info(line);
-                String key = line.split(" ")[2];
-                this.kafkaTemplate.send(TOPIC, key, line);
+                if (line.split(" ")[0].equals("PING")){
+                    outputStream.write(("PONG\n").getBytes(StandardCharsets.UTF_8));
+                }
+                else {
+                    String key = line.split(" ")[2];
+                    this.kafkaTemplate.send(TOPIC, key, line);
+                }
             }
             catch (ArrayIndexOutOfBoundsException e){
                 LOGGER.info("I caught exception " + e.getMessage());

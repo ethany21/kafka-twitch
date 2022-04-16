@@ -8,13 +8,9 @@ import java.io.*;
 class ConnectTwitchTest {
 
     @Test
-    public void testConnection() throws IOException {
-
-        ConnectTwitch connectTwitch = new ConnectTwitch();
-
-        connectTwitch.connect();
-
-
+    public void testPingCheck() {
+        String str = "PING :tmi.twitch.tv";
+        assert "PING".equals(str.split(" ")[0]);
     }
 
     @Test
