@@ -1,4 +1,4 @@
-package com.github.ethany.kafkatwitch;
+package com.github.ethany.kafkatwitch.kafka;
 
 
 import lombok.RequiredArgsConstructor;
@@ -7,7 +7,6 @@ import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.net.Socket;
