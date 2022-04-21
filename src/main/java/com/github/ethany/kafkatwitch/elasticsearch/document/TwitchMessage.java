@@ -1,4 +1,4 @@
-package com.github.ethany.kafkatwitch.elasticsearch.Document;
+package com.github.ethany.kafkatwitch.elasticsearch.document;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
