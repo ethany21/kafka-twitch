@@ -15,6 +15,9 @@ class KafkaTwitchApplicationTests {
 	@Test
 	public void testStringSplit(){
 		String str = "dalpong1!dalpong1@dalpong1.tmi.twitch.tv PRIVMSG #lck_korea :왈맆에선 가렌이 좋아 ㅇㅈ? 성불한 가렌유저들 모두 손 들어주세요~~";
-		System.out.println(str.split(" ")[2]);
+		System.out.println(str);
+		System.out.println(str.split(".tmi.twitch.tv PRIVMSG ")[0].split("@")[1]);
+		System.out.println(str.split(".tmi.twitch.tv PRIVMSG ")[1].split(" :", 2)[0]);
+		System.out.println(str.split(".tmi.twitch.tv PRIVMSG ")[1].split(" :", 2)[1]);
 	}
 }

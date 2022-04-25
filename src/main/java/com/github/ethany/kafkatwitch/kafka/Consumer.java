@@ -2,6 +2,7 @@ package com.github.ethany.kafkatwitch.kafka;
 
 import com.github.ethany.kafkatwitch.elasticsearch.document.TwitchMessage;
 import com.github.ethany.kafkatwitch.elasticsearch.service.TwitchMessageService;
+import com.github.ethany.kafkatwitch.kafka.util.ParseMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
@@ -16,13 +17,15 @@ class Consumer {
 
     private final TwitchMessageService twitchMessageService;
 
-    @KafkaListener(topics = "twitch", groupId = "consumer_group_id")
+    @KafkaListener(topics = "twitch", groupId = "elasticsearch_consumer")
     public void consumeMessage(String message) {
         LOGGER.info(message);
 
-
-        TwitchMessage twitchMessage = TwitchMessage.builder().build();
-        twitchMessageService.save(null);
+        twitchMessageService.save(TwitchMessage.builder()
+                .streamer(ParseMessage.getStreamer(message))
+                .viewer(ParseMessage.getViewer(message))
+                .message(ParseMessage.getMessage(message))
+                .build());
 
 
     }
