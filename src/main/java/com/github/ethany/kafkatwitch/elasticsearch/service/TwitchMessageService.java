@@ -16,9 +16,5 @@ public class TwitchMessageService {
     public void save(final TwitchMessage twitchMessage) {
         twitchMessageRepository.save(twitchMessage);
     }
-
-    public void saveAll(List<TwitchMessage> twitchMessageList) {
-        twitchMessageRepository.saveAll(twitchMessageList);
-    }
 }
 

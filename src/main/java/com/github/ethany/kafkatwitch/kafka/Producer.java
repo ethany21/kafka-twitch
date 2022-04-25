@@ -65,6 +65,7 @@ class Producer {
         outputStream.write(("JOIN " + "#pacific8815" + "\n").getBytes(StandardCharsets.UTF_8));
         outputStream.write(("JOIN " + "#2chamcham2" + "\n").getBytes(StandardCharsets.UTF_8));
         outputStream.write(("JOIN " + "#yumyumyu77" + "\n").getBytes(StandardCharsets.UTF_8));
+        outputStream.write(("JOIN " + "#handongsuk" + "\n").getBytes(StandardCharsets.UTF_8));
 
         InputStream inputStream = socket.getInputStream();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));

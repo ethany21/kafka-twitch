@@ -17,7 +17,7 @@ class Consumer {
 
     private final TwitchMessageService twitchMessageService;
 
-    @KafkaListener(topics = "twitch", groupId = "elasticsearch_consumer")
+    @KafkaListener(topics = "twitch", concurrency = "3", groupId = "elasticsearch_consumer")
     public void consumeMessage(String message) {
         LOGGER.info(message);
 
