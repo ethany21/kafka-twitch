@@ -75,7 +75,6 @@ class Producer {
         while ((line = reader.readLine()) != null) {
 
             try {
-                LOGGER.info(line);
                 if (line.split(" ")[0].equals("PING")){
                     outputStream.write(("PONG\n").getBytes(StandardCharsets.UTF_8));
                 }

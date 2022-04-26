@@ -19,14 +19,18 @@ class Consumer {
 
     @KafkaListener(topics = "twitch", concurrency = "3", groupId = "elasticsearch_consumer")
     public void consumeMessage(String message) {
-        LOGGER.info(message);
 
-        twitchMessageService.save(TwitchMessage.builder()
-                .streamer(ParseMessage.getStreamer(message))
-                .viewer(ParseMessage.getViewer(message))
-                .message(ParseMessage.getMessage(message))
-                .build());
+        try{
+            twitchMessageService.save(TwitchMessage.builder()
+                    .streamer(ParseMessage.getStreamer(message))
+                    .viewer(ParseMessage.getViewer(message))
+                    .message(ParseMessage.getMessage(message))
+                    .build());
+        }
 
+        catch (ArrayIndexOutOfBoundsException e){
+            LOGGER.info(message + ": caused Error");
+        }
 
     }
 }
