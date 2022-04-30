@@ -13,7 +13,7 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 @EnableElasticsearchRepositories(basePackageClasses = TwitchMessageRepository.class)
 public class ElasticsearchConfiguration {
 
-    @Value("${spring.elasticsearch.host}")
+    @Value("${spring.elasticsearch.hosts}")
     private String elasticsearchUrl;
 
     @Bean
