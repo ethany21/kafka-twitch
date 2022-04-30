@@ -4,6 +4,7 @@ import com.github.ethany.kafkatwitch.elasticsearch.repository.TwitchMessageRepos
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
@@ -12,10 +13,13 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 @EnableElasticsearchRepositories(basePackageClasses = TwitchMessageRepository.class)
 public class ElasticsearchConfiguration {
 
+    @Value("${spring.elasticsearch.host}")
+    private String elasticsearchUrl;
+
     @Bean
     public RestHighLevelClient elasticsearchClient() {
 
-        return new RestHighLevelClient(RestClient.builder(new HttpHost("localhost", 9200, "http")));
+        return new RestHighLevelClient(RestClient.builder(new HttpHost(elasticsearchUrl, 9200, "http")));
     }
 
 }
