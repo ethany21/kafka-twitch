@@ -1,7 +1,8 @@
 package com.github.ethany.kafkatwitch.kafka;
 
 
-import com.github.ethany.kafkatwitch.kafka.util.CreateSocketConnection;
+import com.github.ethany.kafkatwitch.kafka.util.CreateSocketOutputStream;
+import com.github.ethany.kafkatwitch.kafka.util.TwitchIrcConnection;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
@@ -9,7 +10,6 @@ import org.springframework.context.event.EventListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -38,27 +38,24 @@ class Producer {
         channels_03.add("#woohankyung");
         channels_03.add("#hatsalsal");
 
-        new Thread(CreateSocketConnection
-                .builder()
-                .channels(channels_01)
-                .kafkaTemplate(kafkaTemplate)
-                .topic(TOPIC).logger(LOGGER)
-                .build()).start();
+        List<List<String>> channels = new ArrayList<>();
+        channels.add(channels_01);
+        channels.add(channels_02);
+        channels.add(channels_03);
 
-        new Thread(CreateSocketConnection
-                .builder()
-                .channels(channels_02)
-                .kafkaTemplate(kafkaTemplate)
-                .topic(TOPIC).logger(LOGGER)
-                .build()).start();
-
-        new Thread(CreateSocketConnection
-                .builder()
-                .channels(channels_03)
-                .kafkaTemplate(kafkaTemplate)
-                .topic(TOPIC).logger(LOGGER)
-                .build()).start();
-
-
+        for (List<String> list: channels){
+            new Thread(TwitchIrcConnection
+                    .builder()
+                    .channels(list)
+                    .kafkaTemplate(kafkaTemplate)
+                    .topic(TOPIC)
+                    .logger(LOGGER)
+                    .streamDto(CreateSocketOutputStream
+                            .builder()
+                            .logger(LOGGER)
+                            .build()
+                            .createSocketOutputStream())
+                    .build()).start();
+        }
     }
 }
