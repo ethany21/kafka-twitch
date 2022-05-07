@@ -20,10 +20,8 @@ class Producer {
 
     private static final String TOPIC = "twitch";
     private static final Logger LOGGER = Logger.getLogger(Producer.class.getName());
-
     @Autowired
     private final KafkaTemplate<String, String> kafkaTemplate;
-
 
     @EventListener(ApplicationStartedEvent.class)
     public void twitch_channels() {
@@ -40,14 +38,27 @@ class Producer {
         channels_03.add("#woohankyung");
         channels_03.add("#hatsalsal");
 
-        CreateSocketConnection createSocketConnection_01 = new CreateSocketConnection(channels_01, kafkaTemplate, TOPIC, LOGGER);
+        new Thread(CreateSocketConnection
+                .builder()
+                .channels(channels_01)
+                .kafkaTemplate(kafkaTemplate)
+                .topic(TOPIC).logger(LOGGER)
+                .build()).start();
 
-        CreateSocketConnection createSocketConnection_02 = new CreateSocketConnection(channels_02, kafkaTemplate, TOPIC, LOGGER);
+        new Thread(CreateSocketConnection
+                .builder()
+                .channels(channels_02)
+                .kafkaTemplate(kafkaTemplate)
+                .topic(TOPIC).logger(LOGGER)
+                .build()).start();
 
-        CreateSocketConnection createSocketConnection_03 = new CreateSocketConnection(channels_03, kafkaTemplate, TOPIC, LOGGER);
+        new Thread(CreateSocketConnection
+                .builder()
+                .channels(channels_03)
+                .kafkaTemplate(kafkaTemplate)
+                .topic(TOPIC).logger(LOGGER)
+                .build()).start();
 
-        new Thread(createSocketConnection_01).start();
-        new Thread(createSocketConnection_02).start();
-        new Thread(createSocketConnection_03).start();
+
     }
 }

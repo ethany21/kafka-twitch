@@ -1,6 +1,8 @@
 package com.github.ethany.kafkatwitch.kafka.util;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 
 import java.io.*;
@@ -9,13 +11,14 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.logging.Logger;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
+@Builder
 public class CreateSocketConnection implements Runnable {
 
-    private List<String> channels;
-    private KafkaTemplate<String, String> kafkaTemplate;
-    private String topic;
-    private Logger logger;
+    private final List<String> channels;
+    private final KafkaTemplate<String, String> kafkaTemplate;
+    private final String topic;
+    private final Logger logger;
 
     public void run() {
         try {
@@ -31,14 +34,14 @@ public class CreateSocketConnection implements Runnable {
 
                 while ((line = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8)).readLine()) != null) {
                     try {
-                        if (line.split(" ")[0].equals(":PING")) {
+                        if (line.split(" ")[0].equals("PING")) {
                             outputStream.write(("PONG\n").getBytes(StandardCharsets.UTF_8));
                         } else {
                             String key = line.split(" ")[2];
                             kafkaTemplate.send(topic, key, line);
                         }
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        logger.info("I Caught exception " + e.getMessage());
+                        logger.info("I Caught exception " + e.getMessage() + " which is : " + line);
                     }
                 }
             }
