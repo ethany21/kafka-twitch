@@ -12,7 +12,7 @@ public class KafkaTwitchApplication {
 
 
     @Bean
-    NewTopic kafkatwitch(){
+    NewTopic kafkaTwitch(){
         return new NewTopic("twitch", 3, (short) 3);
     }
 
