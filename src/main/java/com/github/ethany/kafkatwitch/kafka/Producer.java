@@ -10,6 +10,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -24,19 +25,19 @@ class Producer {
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     @EventListener(ApplicationStartedEvent.class)
-    public void twitch_channels() {
+    public void twitch_channels() throws IOException {
 
         List<String> channels_01 = new ArrayList<>();
-        channels_01.add("#leehunnyeo");
-        channels_01.add("#s1032204");
+        channels_01.add("#amouranth");
+        channels_01.add("#zoodasa");
 
         List<String> channels_02 = new ArrayList<>();
-        channels_02.add("#jinu6734");
-        channels_02.add("#nanayango3o");
+        channels_02.add("#rkdthdus930");
+        channels_02.add("#rkdwl12");
 
         List<String> channels_03 = new ArrayList<>();
-        channels_03.add("#woohankyung");
-        channels_03.add("#hatsalsal");
+        channels_03.add("#nokduro");
+        channels_03.add("#erenjjing");
 
         List<List<String>> channels = new ArrayList<>();
         channels.add(channels_01);

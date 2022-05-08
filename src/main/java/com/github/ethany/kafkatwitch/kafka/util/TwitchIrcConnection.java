@@ -13,7 +13,6 @@ import java.util.logging.Logger;
 @RequiredArgsConstructor
 @Builder
 public class TwitchIrcConnection implements Runnable {
-
     private final List<String> channels;
     private final KafkaTemplate<String, String> kafkaTemplate;
     private final String topic;
@@ -29,6 +28,14 @@ public class TwitchIrcConnection implements Runnable {
             readMessageFromOutputStream();
         } catch (IOException e) {
             logger.info(e.getMessage());
+        } finally {
+            try {
+                streamDto.getSocket().close();
+                streamDto.getOutputStream().close();
+            } catch (IOException e) {
+                logger.info(e.getMessage());
+            }
+
         }
     }
 

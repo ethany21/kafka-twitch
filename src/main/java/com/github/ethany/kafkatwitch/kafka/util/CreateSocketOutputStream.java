@@ -13,19 +13,18 @@ import java.util.logging.Logger;
 @Builder
 public class CreateSocketOutputStream {
     private final Logger logger;
-    private OutputStream outputStream;
-    private SocketOutputStreamDto streamDto;
 
-    public SocketOutputStreamDto createSocketOutputStream() {
-        try (Socket socket = new Socket("irc.chat.twitch.tv", 6667)) {
-            outputStream = socket.getOutputStream();
-            outputStream.write(("PASS " + "oauth:kpz9iq7hk78g6ck8bycx5r3clg9vf9" + "\n").getBytes(StandardCharsets.UTF_8));
-            outputStream.write(("NICK " + "davi21xxi" + "\n").getBytes(StandardCharsets.UTF_8));
-            streamDto = SocketOutputStreamDto.builder().socket(socket).outputStream(outputStream).build();
-        } catch (IOException e) {
-            logger.info(e.getMessage());
-        }
-        return streamDto;
+    public SocketOutputStreamDto createSocketOutputStream() throws IOException {
+
+        OutputStream outputStream;
+        SocketOutputStreamDto streamDto = null;
+
+        Socket socket = new Socket("irc.chat.twitch.tv", 6667);
+        outputStream = socket.getOutputStream();
+        outputStream.write(("PASS " + "oauth:kpz9iq7hk78g6ck8bycx5r3clg9vf9" + "\n").getBytes(StandardCharsets.UTF_8));
+        outputStream.write(("NICK " + "davi21xxi" + "\n").getBytes(StandardCharsets.UTF_8));
+        return SocketOutputStreamDto.builder().socket(socket).outputStream(outputStream).build();
+
     }
 
 }
