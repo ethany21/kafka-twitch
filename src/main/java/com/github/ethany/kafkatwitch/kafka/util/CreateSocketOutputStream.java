@@ -17,7 +17,6 @@ public class CreateSocketOutputStream {
     public SocketOutputStreamDto createSocketOutputStream() throws IOException {
 
         OutputStream outputStream;
-        SocketOutputStreamDto streamDto = null;
 
         Socket socket = new Socket("irc.chat.twitch.tv", 6667);
         outputStream = socket.getOutputStream();

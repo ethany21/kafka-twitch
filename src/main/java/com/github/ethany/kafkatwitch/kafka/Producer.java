@@ -28,16 +28,16 @@ class Producer {
     public void twitch_channels() throws IOException {
 
         List<String> channels_01 = new ArrayList<>();
-        channels_01.add("#amouranth");
-        channels_01.add("#zoodasa");
+        channels_01.add("#ddahyoni");
+        channels_01.add("#kimdoe");
 
         List<String> channels_02 = new ArrayList<>();
-        channels_02.add("#rkdthdus930");
-        channels_02.add("#rkdwl12");
+        channels_02.add("#pacific8815");
+        channels_02.add("#cherrypach");
 
         List<String> channels_03 = new ArrayList<>();
-        channels_03.add("#nokduro");
-        channels_03.add("#erenjjing");
+        channels_03.add("#nanajam777");
+        channels_03.add("#2chamcham2");
 
         List<List<String>> channels = new ArrayList<>();
         channels.add(channels_01);
